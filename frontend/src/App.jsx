@@ -77,6 +77,18 @@ useEffect(() => {
         Samosa: "A crispy snack filled with spicy potatoes.",
         "Litti Chokha": "A traditional favourite full of flavour.",
         Chaat: "A flavourful street-food favourite.",
+        "Dahi Puri": "Crispy puris filled with potato, yogurt, chutneys, and sev.",
+        "Bhel Puri": "A crunchy mix of puffed rice, vegetables, and tangy chutneys.",
+        "Aloo Tikki Chaat": "Crisp potato patties topped with yogurt and chutneys.",
+        "Masala Samosa": "Golden pastry filled with spiced potatoes and peas.",
+        "Vada Pav": "Mumbai-style potato fritter in a soft pav with chutneys.",
+        "Paneer Burger": "A crisp paneer patty with fresh vegetables and sauce.",
+        "Corn and Cheese Pizza": "Sweet corn and melted cheese on a crisp pizza base.",
+        "Pav Bhaji": "Spiced mashed vegetables served with buttery toasted pav.",
+        "Tandoori Paneer Pizza": "A cheesy pizza topped with tandoori-spiced paneer.",
+        "Paneer Tikka Burger": "Grilled tikka paneer layered into a fresh burger bun.",
+        "Masala Dosa": "A crisp dosa filled with spiced potato and served with chutney.",
+        Dabeli: "A Gujarati bun filled with spiced potato, chutneys, and crunchy sev.",
       };
 
       const categoryMap = {
@@ -89,6 +101,18 @@ useEffect(() => {
         Samosa: "Snacks",
         "Litti Chokha": "Indian",
         Chaat: "Indian",
+        "Dahi Puri": "Indian",
+        "Bhel Puri": "Snacks",
+        "Aloo Tikki Chaat": "Indian",
+        "Masala Samosa": "Snacks",
+        "Vada Pav": "Snacks",
+        "Paneer Burger": "Burgers",
+        "Corn and Cheese Pizza": "Pizza",
+        "Pav Bhaji": "Indian",
+        "Tandoori Paneer Pizza": "Pizza",
+        "Paneer Tikka Burger": "Burgers",
+        "Masala Dosa": "Indian",
+        Dabeli: "Snacks",
       };
 
       setFoods(
@@ -297,11 +321,11 @@ async function handleCheckoutSubmit(event) {
 
     // Only clear the cart after the backend confirms success.
     setOrderMessage(
-      `Thank you, ${name}! Your order #${data.order_id} has been placed successfully. Total: â‚¹${data.total_amount}.`
+      `Thank you, ${name}! Your order #${data.order_id} has been placed successfully. Total: ₹${data.total_amount}.`
     );
 
     setToast(
-      `Order placed successfully! Total: â‚¹${data.total_amount}`
+      `Order placed successfully! Total: ₹${data.total_amount}`
     );
 
     setCart([]);
@@ -333,6 +357,13 @@ async function handleCheckoutSubmit(event) {
     }, 0);
   }
 
+  // Open the cart with delivery details ready from the menu.
+  function openCheckout() {
+    setCheckoutError("");
+    setCheckoutOpen(true);
+    openCart();
+  }
+
   // Close the cart.
   function closeCart() {
     setShowCart(false);
@@ -340,8 +371,8 @@ async function handleCheckoutSubmit(event) {
 
   return (
     <div className="app">
-      {toast && <div className="toast-notification" role="status">âœ“ {toast}</div>}
-      {orderMessage && <div className="order-success" role="status">{orderMessage}<button type="button" onClick={() => setOrderMessage("")} aria-label="Dismiss order confirmation">Ã—</button></div>}
+      {toast && <div className="toast-notification" role="status">✓ {toast}</div>}
+      {orderMessage && <div className="order-success" role="status">{orderMessage}<button type="button" onClick={() => setOrderMessage("")} aria-label="Dismiss order confirmation">×</button></div>}
       {/* =====================================
           NAVIGATION
       ===================================== */}
@@ -359,7 +390,7 @@ async function handleCheckoutSubmit(event) {
           
         </nav>
         <a href="/admin-login" className="admin-nav-button">
-  ðŸ” Admin Login
+  🔐 Admin Login
 </a>
         <button
           className="cart-button"
@@ -367,7 +398,7 @@ async function handleCheckoutSubmit(event) {
           onClick={openCart}
           aria-label={`Open cart with ${cartCount} items`}
         >
-          ðŸ›’ Cart ({cartCount})
+          🛒 Cart ({cartCount})
         </button>
       </header>
 
@@ -396,7 +427,7 @@ async function handleCheckoutSubmit(event) {
 
             <div className="hero-buttons">
               <a href="#menu" className="primary-button">
-                Explore Our Menu <span>â†’</span>
+                Explore Our Menu <span>→</span>
               </a>
 
               <button
@@ -404,12 +435,12 @@ async function handleCheckoutSubmit(event) {
                 type="button"
                 onClick={openCart}
               >
-                ðŸ›’ View Cart
+                🛒 View Cart
               </button>
             </div>
 
             <p className="hero-trust">
-              <span>âœ¦</span> Big flavours. Happy cravings. Every time.
+              <span>✦</span> Big flavours. Happy cravings. Every time.
             </p>
           </div>
 
@@ -423,15 +454,15 @@ async function handleCheckoutSubmit(event) {
             />
 
             <div className="hero-badge">
-              <span>ðŸŸ</span>
+              <span>🍟</span>
               <div>
                 <strong>Fresh &amp; Tasty</strong>
                 <p>Made for your cravings</p>
               </div>
             </div>
 
-            <span className="hero-spark hero-spark-one">âœ³</span>
-            <span className="hero-spark hero-spark-two">âœ¦</span>
+            <span className="hero-spark hero-spark-one">✳</span>
+            <span className="hero-spark hero-spark-two">✦</span>
           </div>
         </section>
 
@@ -469,6 +500,7 @@ async function handleCheckoutSubmit(event) {
                 </button>
               ))}
             </div>
+
           </div>
 
           {foodsLoading ? (
@@ -516,7 +548,7 @@ async function handleCheckoutSubmit(event) {
 
                       <div className="food-card-bottom">
                         <span className="food-price">
-                          â‚¹{food.price}
+                          ₹{food.price}
                         </span>
 
                         <button
@@ -528,7 +560,7 @@ async function handleCheckoutSubmit(event) {
                           aria-label={`Add ${food.name} to cart`}
                         >
                           {quantity > 0
-                            ? `Added âœ“ (${quantity})`
+                            ? `Added ✓ (${quantity})`
                             : "Add to Cart"}
                         </button>
                       </div>
@@ -538,6 +570,17 @@ async function handleCheckoutSubmit(event) {
               })}
             </div>
           )}
+
+          <button
+            className="primary-button menu-checkout-button"
+            type="button"
+            onClick={openCheckout}
+            disabled={cart.length === 0}
+          >
+            {cart.length === 0
+              ? "Add items to checkout"
+              : `Checkout ${cartCount} item${cartCount === 1 ? "" : "s"} · ₹${cartTotal} →`}
+          </button>
         </section>
 
         {/* =====================================
@@ -557,13 +600,13 @@ async function handleCheckoutSubmit(event) {
                 type="button"
                 onClick={closeCart}
               >
-                âœ• Close
+                ✕ Close
               </button>
             </div>
 
             {cart.length === 0 ? (
               <div className="empty-cart">
-                <span className="empty-cart-icon">ðŸ›’</span>
+                <span className="empty-cart-icon">🛒</span>
                 <h3>Your cart is waiting!</h3>
                 <p>
                   You haven't added any food yet. Explore our menu
@@ -591,7 +634,7 @@ async function handleCheckoutSubmit(event) {
 
                       <div className="cart-item-details">
                         <h3>{item.name}</h3>
-                        <p>â‚¹{item.price} each</p>
+                        <p>₹{item.price} each</p>
 
                         <div className="quantity-controls">
                           <button
@@ -599,7 +642,7 @@ async function handleCheckoutSubmit(event) {
                             onClick={() => decreaseQuantity(item.id)}
                             aria-label={`Decrease ${item.name} quantity`}
                           >
-                            âˆ’
+                            −
                           </button>
 
                           <span>{item.quantity}</span>
@@ -616,7 +659,7 @@ async function handleCheckoutSubmit(event) {
 
                       <div className="cart-item-end">
                         <strong>
-                          â‚¹{item.price * item.quantity}
+                          ₹{item.price * item.quantity}
                         </strong>
 
                         <button
@@ -634,7 +677,7 @@ async function handleCheckoutSubmit(event) {
                 <div className="cart-total">
                   <div>
                     <p>Order total</p>
-                    <h3>â‚¹{cartTotal}</h3>
+                    <h3>₹{cartTotal}</h3>
                   </div>
 
                   <button
@@ -645,7 +688,7 @@ async function handleCheckoutSubmit(event) {
                       setCheckoutError("");
                     }}
                   >
-                    {checkoutOpen ? "Hide Checkout â†‘" : "Proceed to Checkout â†’"}
+                    {checkoutOpen ? "Hide Checkout ↑" : "Proceed to Checkout →"}
                   </button>
                 </div>
 
@@ -669,10 +712,10 @@ async function handleCheckoutSubmit(event) {
                     </div>
                     <div className="checkout-summary">
                       <span>{cartCount} item(s) in your order</span>
-                      <strong>Total: â‚¹{cartTotal}</strong>
+                      <strong>Total: ₹{cartTotal}</strong>
                     </div>
                     {checkoutError && <p className="form-error" role="alert">{checkoutError}</p>}
-                    <button className="primary-button contact-submit" type="submit">Place Demo Order Â· â‚¹{cartTotal}</button>
+                    <button className="primary-button contact-submit" type="submit">Place Demo Order · ₹{cartTotal}</button>
                     <p className="form-disclaimer">Demo checkout only: this confirms the order in this browser. No payment is taken and no restaurant receives the order.</p>
                   </form>
                 )}
@@ -704,14 +747,14 @@ async function handleCheckoutSubmit(event) {
             </p>
 
             <a href="#menu" className="about-button">
-              Find Your Favourite â†’
+              Find Your Favourite →
             </a>
           </div>
 
           <div className="about-visual" aria-hidden="true">
-            <div className="about-food-circle">ðŸ”</div>
-            <span className="about-decoration">âœ¦</span>
-            <span className="about-decoration second">âœ³</span>
+            <div className="about-food-circle">🍔</div>
+            <span className="about-decoration">✦</span>
+            <span className="about-decoration second">✳</span>
           </div>
         </section>
 
@@ -731,7 +774,7 @@ async function handleCheckoutSubmit(event) {
             </p>
 
             <div className="contact-note">
-              <span>ðŸ’¬</span>
+              <span>💬</span>
               <div>
                 <strong>Your feedback matters</strong>
                 <p>Help us make your StreetBite experience better.</p>
@@ -815,7 +858,7 @@ async function handleCheckoutSubmit(event) {
             )}
 
             <button className="primary-button contact-submit" type="submit">
-              Send Message â†’
+              Send Message →
             </button>
 
             <p className="form-disclaimer">
@@ -847,7 +890,7 @@ async function handleCheckoutSubmit(event) {
         </div>
 
         <p className="copyright">
-          Â© {new Date().getFullYear()} StreetBite. Built with â¤ï¸ and a
+          © {new Date().getFullYear()} StreetBite. Built with ❤️ and a
           love for food.
         </p>
       </footer>

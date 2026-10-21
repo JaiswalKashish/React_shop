@@ -457,6 +457,21 @@ main section {
   gap: 10px;
 }
 
+.menu-checkout-button {
+  display: flex;
+  width: fit-content;
+  margin: 34px auto 0;
+  border-radius: 30px;
+}
+
+.menu-checkout-button:disabled,
+.menu-checkout-button:disabled:hover {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+  transform: none;
+}
+
 .category-button {
   padding: 10px 19px;
   border: 1px solid #e9e0d8;

@@ -323,9 +323,8 @@ app.get("/api/orders", verifyAdmin, (req, res) => {
     });
 });
 // Update order status
-// Update order status
-app.put("/api/orders/:id/status", verifyAdmin, async (req, res) => {
-  const { id } = req.params;
+app.put("/api/orders/:id/status", verifyAdmin, (req, res) => {
+  const orderId = Number(req.params.id);
   const { status } = req.body;
 
   const allowedStatuses = [
@@ -337,6 +336,13 @@ app.put("/api/orders/:id/status", verifyAdmin, async (req, res) => {
     "Cancelled"
   ];
 
+  if (!Number.isInteger(orderId) || orderId < 1) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid order ID"
+    });
+  }
+
   if (!allowedStatuses.includes(status)) {
     return res.status(400).json({
       success: false,
@@ -344,31 +350,31 @@ app.put("/api/orders/:id/status", verifyAdmin, async (req, res) => {
     });
   }
 
-  try {
-    const [result] = await db.query(
-      "UPDATE orders SET status = ? WHERE id = ?",
-      [status, id]
-    );
+  db.query(
+    "UPDATE orders SET status = ? WHERE id = ?",
+    [status, orderId],
+    (error, result) => {
+      if (error) {
+        console.error("Error updating order status:", error.message);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to update order status"
+        });
+      }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "Order not found"
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "Order not found"
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Order status updated successfully"
       });
     }
-
-    res.json({
-      success: true,
-      message: "Order status updated successfully"
-    });
-  } catch (error) {
-    console.error("Error updating order status:", error);
-
-    res.status(500).json({
-      success: false,
-      message: error.message || "Failed to update order status",
-    });
-  }
+  );
 });
 // Admin login
 app.post("/api/admin/login", async (req, res) => {

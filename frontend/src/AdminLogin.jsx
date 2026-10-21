@@ -57,7 +57,7 @@ export default function AdminLogin() {
     <div className="admin-login-page">
       <div className="admin-login-card">
         <a href="/" className="admin-login-brand">
-          <span>ðŸ”</span>
+          <span>🍔</span>
           <div>
             <h1>StreetBite</h1>
             <p>ADMIN PANEL</p>
@@ -114,12 +114,12 @@ export default function AdminLogin() {
             className="admin-login-button"
             disabled={loading}
           >
-            {loading ? "Signing in..." : "Sign In â†’"}
+            {loading ? "Signing in..." : "Sign In →"}
           </button>
         </form>
 
         <a href="/" className="admin-login-back">
-          â† Back to StreetBite
+          ← Back to StreetBite
         </a>
       </div>
     </div>

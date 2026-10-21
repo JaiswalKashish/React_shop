@@ -164,7 +164,7 @@ if (!response.ok || !data.success) {
       {/* Header */}
       <header className="admin-header">
         <a href="/" className="admin-brand">
-          <span className="admin-brand-icon">ðŸ”</span>
+          <span className="admin-brand-icon">🍔</span>
 
           <span>
             <strong>StreetBite</strong>
@@ -180,11 +180,11 @@ if (!response.ok || !data.success) {
       window.location.href = "/admin-login";
     }}
   >
-    Logout â†ª
+    Logout ↪
   </button>
 
   <a href="/" className="admin-home-link">
-    â† Back to Website
+    ← Back to Website
   </a>
 </div>
       </header>
@@ -209,7 +209,7 @@ if (!response.ok || !data.success) {
             onClick={() => fetchOrders(true)}
             disabled={refreshing || loading}
           >
-            {refreshing ? "Refreshing..." : "â†» Refresh Orders"}
+            {refreshing ? "Refreshing..." : "↻ Refresh Orders"}
           </button>
         </div>
 
@@ -224,7 +224,7 @@ if (!response.ok || !data.success) {
           <article className="admin-stat-card">
             <span>Total Sales</span>
             <strong>
-              â‚¹{totalSales.toLocaleString("en-IN")}
+              ₹{totalSales.toLocaleString("en-IN")}
             </strong>
             <small>Excluding cancelled orders</small>
           </article>
@@ -340,7 +340,7 @@ if (!response.ok || !data.success) {
                             <div
                               key={`${item.food_id}-${index}`}
                             >
-                              {item.food_name} Ã— {item.quantity}
+                              {item.food_name} × {item.quantity}
                             </div>
                           )
                         )}
@@ -349,7 +349,7 @@ if (!response.ok || !data.success) {
                       {/* Order total */}
                       <td>
                         <strong>
-                          â‚¹
+                          ₹
                           {Number(
                             order.total_amount || 0
                           ).toLocaleString("en-IN")}
@@ -399,7 +399,7 @@ if (!response.ok || !data.success) {
                           ? new Date(
                               order.created_at
                             ).toLocaleDateString("en-IN")
-                          : "â€”"}
+                          : "—"}
                       </td>
                     </tr>
                   ))}
